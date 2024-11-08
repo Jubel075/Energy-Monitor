@@ -42,10 +42,15 @@ def get_data(tab, group_by=None, selected_month=None, selected_day=None):
     # Filter by month and day if provided
     if selected_month:
         df = df[df['month'] == selected_month]
+        # Sort by day after filtering by month
+        df = df.sort_values(by=['day', 'date'])
     if selected_day:
         df = df[df['day'] == int(selected_day)]
+        # Sort by hour after filtering by day
+        df = df.sort_values(by=['hour', 'date'])
 
     return df
+
 
 # Route for the homepage
 # Route for the homepage
