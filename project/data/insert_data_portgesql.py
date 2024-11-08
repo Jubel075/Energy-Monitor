@@ -42,7 +42,7 @@ def create_table():
     conn.close()
     print("Table 'EnergyData' has been created if it didn't already exist.")
 
-# Function to generate and insert random data
+# Function to generate and insert random data every 10 days for 4 months
 def generate_random_data():
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(
@@ -53,11 +53,21 @@ def generate_random_data():
     )
     cursor = conn.cursor()
 
-    # Set the initial datetime for the first entry
-    current_time = datetime(2024, 10, 30, 12, 0, 0)  # Starting from 2024-10-30 12:00:00
+    # Set the initial datetime for the first entry (January 1, 2024)
+    current_date = datetime(2024, 1, 1)  # Starting from 2024-01-01
 
-    # Generate 5 random data entries (you can modify the range for more data)
-    for i in range(100):
+    # Set the end date to April 30, 2024 (4 months later)
+    end_date = datetime(2024, 4, 30)
+
+    # Generate random data every 10 days within the specified time range
+    while current_date <= end_date:
+        # Generate a random time (hour, minute, second) for the current_date
+        random_time = current_date.replace(
+            hour=random.randint(0, 23),
+            minute=random.randint(0, 59),
+            second=random.randint(0, 59)
+        )
+
         # Random values for Irms, Energy_Usage, and kWh
         Irms = round(random.uniform(10.5, 10.8), 2)  # Random value between 10.5 and 10.8
         Energy_Usage = round(random.uniform(13450, 13600), 2)  # Random value between 13450 and 13600
@@ -68,17 +78,17 @@ def generate_random_data():
         INSERT INTO EnergyData (Date, Irms, Energy_Usage, kWh)
         VALUES (%s, %s, %s, %s)
         """
-        cursor.execute(query, (current_time, Irms, Energy_Usage, kWh))
+        cursor.execute(query, (random_time, Irms, Energy_Usage, kWh))
 
-        # Increment the current time by 10 seconds for the next entry
-        current_time += timedelta(seconds=10)
+        # Increment the current date by 10 days for the next entry
+        current_date += timedelta(days=10)
 
     # Commit the transaction and close the connection
     conn.commit()
     cursor.close()
     conn.close()
 
-    print("Random data has been inserted into the database.")
+    print("Random data for January to April 2024 has been inserted into the database every 10 days.")
 
 # Run the functions to create the table and insert data
 if __name__ == "__main__":

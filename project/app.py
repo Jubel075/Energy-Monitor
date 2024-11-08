@@ -15,7 +15,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Function to fetch and format data from the PostgreSQL database
-def get_data(tab, group_by=None, selected_month=None, selected_day=None, limit_days=30):
+def get_data(tab, group_by=None, selected_month=None, selected_day=None):
     try:
         # Connect to the PostgreSQL database using the connection URL
         conn = psycopg2.connect(DATABASE_URL)
@@ -38,105 +38,55 @@ def get_data(tab, group_by=None, selected_month=None, selected_day=None, limit_d
     df['day'] = df['date'].dt.day
     df['hour'] = df['date'].dt.hour
     df = df.sort_values(by='date')
-    
-    # Filter data based on the selected month or day
+
+    # Filter by month and day if provided
     if selected_month:
         df = df[df['month'] == selected_month]
-    
-    if selected_day and selected_day != 'None':
+    if selected_day:
         df = df[df['day'] == int(selected_day)]
-    
-    # Filter data to include only the latest 'limit_days' days
-    latest_date = df['date'].max()
-    min_date = latest_date - pd.Timedelta(days=limit_days)
-    df = df[df['date'] >= min_date]
-    
-    # Accumulate data by day
-    df_accumulated = df.groupby(['year', 'month', 'day']).agg({tab: 'sum'}).reset_index()
 
-    return df_accumulated
+    return df
 
+# Route for the homepage
+@app.route('/')
+def index():
+    selected_month = request.args.get('month')
+    selected_day = request.args.get('day')
+    selected_tab = request.args.get('tab', 'irms')
 
-# Route for getting day options based on the selected month
+    # Get the data based on the selected filters
+    df = get_data(tab=selected_tab, selected_month=selected_month, selected_day=selected_day)
+
+    # Prepare the data for the graph
+    fig = go.Figure()
+    if selected_tab == 'irms':
+        fig.add_trace(go.Scatter(x=df['date'], y=df['irms'], mode='lines', name='Irms'))
+    elif selected_tab == 'energy_usage':
+        fig.add_trace(go.Scatter(x=df['date'], y=df['energy_usage'], mode='lines', name='Energy Usage'))
+    else:
+        fig.add_trace(go.Scatter(x=df['date'], y=df['kwh'], mode='lines', name='kWh'))
+
+    graph_html = fig.to_html(full_html=False)
+
+    # Prepare the month and day options for the dropdown
+    month_options = [{'value': month, 'label': month} for month in df['month'].unique()]
+    day_options = df['day'].unique().tolist()
+
+    return render_template('index.html', 
+                           graph_html=graph_html,
+                           selected_month=selected_month, 
+                           selected_day=selected_day,
+                           selected_tab=selected_tab,
+                           month_options=month_options,
+                           day_options=day_options)
+
+# Route to fetch available days for the selected month
 @app.route('/days', methods=['GET'])
 def get_days():
     selected_month = request.args.get('month')
     df = get_data(tab='irms', selected_month=selected_month)
     days = df['day'].unique().tolist()
     return jsonify(days)
-
-# Route to render the homepage with Plotly graph
-@app.route('/', methods=['GET'])
-def index():
-    selected_month = request.args.get('month')
-    selected_day = request.args.get('day')
-    selected_tab = request.args.get('tab', 'irms')  # Default to 'irms' tab if none is selected
-
-    if not selected_month and not selected_day:
-        df = get_data(tab=selected_tab, limit_days=30)  # Get latest 30 days for raw data
-    else:
-        group_by = 'hour' if selected_day else 'day'
-        df = get_data(tab=selected_tab, group_by=group_by, selected_month=selected_month, selected_day=selected_day, limit_days=30)
-
-    # Create a Plotly figure based on the selected tab and filters
-    fig = go.Figure()
-
-    # Set axis labels based on the selected tab
-    if selected_tab == 'irms':
-        y_axis_label = 'Current (A)'
-    elif selected_tab == 'energy_usage':
-        y_axis_label = 'Energy Usage (W·s)'
-    elif selected_tab == 'kwh':
-        y_axis_label = 'Energy Consumption (kWh)'
-
-    if selected_day:
-        fig.add_trace(go.Bar(
-            x=df['hour'], 
-            y=df[selected_tab], 
-            name=selected_tab,
-            text=df[selected_tab], 
-            textposition='auto'
-        ))
-        fig.update_layout(
-            title=f"Accumulated {selected_tab} for {selected_day} - {selected_month}",
-            xaxis_title="Hour of Day",
-            yaxis_title=y_axis_label
-        )
-    elif selected_month:
-        fig.add_trace(go.Bar(
-            x=df['day'], 
-            y=df[selected_tab], 
-            name=selected_tab,
-            text=df[selected_tab], 
-            textposition='auto'
-        ))
-        fig.update_layout(
-            title=f"Accumulated {selected_tab} for {selected_month}",
-            xaxis_title="Day of Month",
-            yaxis_title=y_axis_label
-        )
-    else:
-        fig.add_trace(go.Bar(
-            x=df['day'], 
-            y=df[selected_tab], 
-            name=selected_tab,
-            text=df[selected_tab], 
-            textposition='auto'
-        ))
-        fig.update_layout(
-            title=f"Accumulated {selected_tab} for Last {30} Days",
-            xaxis_title="Day",
-            yaxis_title=y_axis_label
-        )
-
-    fig.update_layout(width=1150, height=600)
-    graph_html = fig.to_html(full_html=False)
-    
-    # Generate month options
-    df_all = get_data(tab='irms')
-    month_options = [{"label": month, "value": month} for month in df_all['month'].unique()]
-    
-    return render_template('index.html', graph_html=graph_html, month_options=month_options, selected_month=selected_month, selected_day=selected_day, selected_tab=selected_tab)
 
 if __name__ == '__main__':
     app.run(debug=True)
