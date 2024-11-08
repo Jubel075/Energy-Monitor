@@ -115,7 +115,7 @@
         monthDropdown.addEventListener('change', function() {
             const selectedMonth = monthDropdown.value;
             updateDayDropdown(selectedMonth);  // Update days based on the selected month
-            dayDropdown.value = "";  // Reset day selection
+            dayDropdown.value = "selectedDay";  // Reset day selection
             window.location.href = `?tab={{ selected_tab }}&month=${selectedMonth}&day=`;  // Reset day in the URL when month changes
         });
 
