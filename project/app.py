@@ -48,6 +48,7 @@ def get_data(tab, group_by=None, selected_month=None, selected_day=None):
     return df
 
 # Route for the homepage
+# Route for the homepage
 @app.route('/')
 def index():
     selected_month = request.args.get('month')
@@ -59,12 +60,29 @@ def index():
 
     # Prepare the data for the graph
     fig = go.Figure()
+
+    # Set axis titles and graph data based on selected tab
     if selected_tab == 'irms':
         fig.add_trace(go.Scatter(x=df['date'], y=df['irms'], mode='lines', name='Irms'))
+        fig.update_layout(
+            title="Current (Irms)",
+            xaxis_title="Date",
+            yaxis_title="Current (A)"
+        )
     elif selected_tab == 'energy_usage':
         fig.add_trace(go.Scatter(x=df['date'], y=df['energy_usage'], mode='lines', name='Energy Usage'))
-    else:
+        fig.update_layout(
+            title="Energy Usage (Ws)",
+            xaxis_title="Date",
+            yaxis_title="Energy (Ws)"
+        )
+    else:  # kWh tab
         fig.add_trace(go.Scatter(x=df['date'], y=df['kwh'], mode='lines', name='kWh'))
+        fig.update_layout(
+            title="Energy Consumption (kWh)",
+            xaxis_title="Date",
+            yaxis_title="kWh"
+        )
 
     graph_html = fig.to_html(full_html=False)
 
@@ -79,6 +97,7 @@ def index():
                            selected_tab=selected_tab,
                            month_options=month_options,
                            day_options=day_options)
+
 
 # Route to fetch available days for the selected month
 @app.route('/days', methods=['GET'])
