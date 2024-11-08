@@ -36,7 +36,6 @@
 
         <!-- Tabs and Reset Button Section -->
         <div class="tabs-and-reset">
-            <!-- Tabs for Irms, Energy Usage, kWh -->
             <div class="tabs">
                 <ul class="tab-titles">
                     <li class="{% if selected_tab == 'irms' %}active{% endif %}">
@@ -51,7 +50,6 @@
                 </ul>
             </div>
 
-            <!-- Reset Filter Button -->
             <button id="reset-button" onclick="resetFilters()">
                 <i class="fas fa-redo"></i> Reset Filters
             </button>
@@ -62,21 +60,17 @@
             {{ graph_html | safe }}
         </div>
 
-        <!-- Footer Section -->
         <footer>
             <p>© 2024 Energy Data Dashboard. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
-        // JavaScript for dynamic day options based on selected month
         const monthDropdown = document.getElementById('month-dropdown');
         const dayDropdown = document.getElementById('day-dropdown');
 
         monthDropdown.addEventListener('change', function() {
             const selectedMonth = monthDropdown.value;
-
-            // Clear day dropdown and reset options
             dayDropdown.innerHTML = '<option value="">-- Select Day --</option>';
 
             if (selectedMonth) {
@@ -92,19 +86,15 @@
                     });
             }
 
-            // Reload page with updated month selection
             window.location.href = `?tab={{ selected_tab }}&month=${selectedMonth || ''}&day=${dayDropdown.value || ''}`;
         });
 
         dayDropdown.addEventListener('change', function() {
             const selectedMonth = monthDropdown.value;
             const selectedDay = dayDropdown.value;
-
-            // Reload page with updated day selection
             window.location.href = `?tab={{ selected_tab }}&month=${selectedMonth || ''}&day=${selectedDay || ''}`;
         });
 
-        // Reset filters function
         function resetFilters() {
             window.location.href = `?tab={{ selected_tab }}&month=&day=`;
         }
