@@ -1,0 +1,97 @@
+% Document preamble
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{titlesec}
+\usepackage{soul}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes.geometric, arrows}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{pgfplots,pgfplotstable}
+\pgfplotsset{compat=1.18}
+\date{\today}
+
+%Packages for costum tables 
+\usepackage{booktabs, multirow}
+\usepackage{changepage,threeparttable} 
+
+% Set the document layout 
+\usepackage{multicol}
+\usepackage{geometry}
+\geometry{margin=1.5cm}
+
+% Set the authors and affiliation
+\usepackage{authblk}
+\author{Kasandikromo Guillian}
+\author{Karg Timothy}
+\author{Uraicia Sewpersad}
+\affil{Vanguard Community College - Department of Engineering}
+
+% Modify the authors and affilition text 
+\renewcommand\Authfont{\bfseries\fontsize{9}{14}\selectfont}
+\renewcommand\Affilfont{\fontsize{12}{14}\selectfont}
+
+% Set the header of the document
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\fontsize{8}{12}\selectfont Vanguard Community College}
+\fancyhead[C]{\fontsize{8}{12}\selectfont \date{\today}}
+\fancyhead[R]{\fontsize{8}{12}\selectfont Page \thepage}
+
+% Modify the header lenght, width and position
+\newlength\FHleft
+\newlength\FHright
+\setlength\FHleft{1cm}
+\setlength\FHright{0cm}
+\setlength{\headheight}{25pt}
+
+% Set the separation lenght of the columns
+\setlength{\columnsep}{1cm}
+
+% Set the titel of the document
+\title{\Large \bfseries 
+    Monitoring Energy Consumption using Arduino}
+
+% Redefine the section numbering format
+\renewcommand{\thesection}{\Roman{section}.}
+\renewcommand{\thesubsection}{\roman{subsection}.}
+\titlespacing*{\section}{0pt}{1cm}{0.5cm}
+\titlespacing*{\subsection}{0pt}{0.5cm}{2pt}
+\titleformat{\section}
+  {\bfseries\large\centering}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalsize\centering\itshape}{\thesubsection}{1em}{}
+
+\begin{document}
+    \begin{multicols}{2}
+        \maketitle
+        \thispagestyle{fancy}
+       \begin{abstract}
+        \setlength{\baselineskip}{1.2\baselineskip} % Increase line spacing
+        \noindent 
+        \makebox[\linewidth]{
+            \begin{minipage}{0.48\textwidth}
+            \input{abstract}
+            \end{minipage}}
+        \end{abstract}
+    
+        % Set sections and bibliography
+        \input{Sections/Introduction}
+        \input{Sections/Materials}
+        \input{Sections/System Design}
+        \input{Sections/Voltage transformer}
+
+        \end{multicols}
+
+        %\include{Sections/App_Overview} - Zijn code blocks voor die app, ben niet zeker als het gezet moet worden. 
+        \bibliographystyle{plain}
+        \bibliography{Reference}
+\end{document}

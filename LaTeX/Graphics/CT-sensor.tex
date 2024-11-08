@@ -1,0 +1,82 @@
+\begin{minipage}{\linewidth}
+\begin{figure}[H]
+\centering
+    \begin{circuitikz}
+        \tikzstyle{every node}=[font=\small]
+        \draw [](1.25,11.5) to[short] (3,11.5);
+        \draw [](1.25,11.5) to[short, -o] (0.75,11.5);
+        \draw [->, >=Stealth] (1.75,11.5) -- (2,11.5);
+        
+        \draw [](3,11.5) to[short] (3,10.75);
+        \draw [](3,11) to[short] (3,10.5);
+        \draw (3,10.5) to[L ] (5,10.5);
+        
+        \draw [](5,10.5) to[short] (5,11.5);
+        \draw [](5,11.5) to[short] (6.5,11.5);
+        \draw [](6.5,11.5) to[short, -o] (7,11.5) ;
+        \draw [->, >=Stealth] (6,11.5) -- (6.25,11.5);
+        \draw (2.75,9.5) to[L ] (5.25,9.5);
+        
+        \draw[] (5.25,9.5) to[short] (5,9.5);
+        
+        \draw[] (5,9.5) to[short] (4.75,9.5);
+        \draw [, dashed] (2.75,11) rectangle  (5.25,9.25);
+        \draw [](2.75,9.25) to[short] (2.75,8.75);
+        \draw [](2.75,8.75) to[short] (2.75,8.25);
+        
+        \draw [](5.25,9.25) to[short] (5.25,8.25);
+        \draw[] (5.25,8.25) to[short] (4.5,8.25);
+        \node at (4.5,8.25) [circ] {};
+        \draw [](4.5,8.25) to[short] (4.5,6.25);
+        \node at (2.75,8.25) [circ] {};
+        
+        \draw [](2.75,8.25) to[short] (2.75,5.75);
+        \draw (2.25,7.25) to[C] (1.5,7.25);
+        \node at (2.75,7.25) [circ] {};
+        \draw (2.25,7.25) to[C] (1,7.25);
+        \draw [](2.75,5.75) to[short] (2.75,5.5);
+        \draw [](2.75,5.5) to[short] (2.75,5.25);
+        \node at (2.75,5.25) [circ] {};
+        \draw (2.75,5.25) to[R] (4.75,5.25);
+        \draw (2.25,5.25) to[R] (1,5.25);
+        \draw [](2.25,5.25) to[short] (2.75,5.25);
+        \draw [](2.25,7.25) to[short] (2.75,7.25);
+        \draw[] (1,5.25) to[short] (0.75,5.25);
+        \draw[] (1,7.25) to[short] (0.75,7.25);
+        \draw[] (0.75,5.25) to[short] (0.5,5.25);
+        \draw[] (0.75,7.25) to[short] (0.5,7.25);
+        \node at (0.5,7.25) [circ] {};
+        \node at (0.5,5.25) [circ] {};
+        \draw [](0.5,5.25) to[short] (0.5,7.25);
+        \draw [](0.5,7.25) to[short] (0.5,8.25);
+        \draw [](0.5,5.25) to[short] (0.5,4);
+        \draw [](2.75,5.25) to[short] (2.75,4.25);
+        \draw [](2.75,4.25) to[short] (2.75,4);
+        \draw [](4.5,6.25) to[short] (4.5,4);
+        \draw [](4.5,5.25) to[short] (5,5.25);
+        \draw [](4.75,5.25) to[short] (5.5,5.25);
+        \draw [](5.5,5.25) to[short] (5.5,4);
+        \node [font=\small] at (1.75,11.75) {Heavy line current};
+        \node [font=\small] at (6.75,10) {Current transformer};
+        \node [font=\small] at (4,9) {Secondary};
+        \node [font=\small] at (4,11.25) {Primary};
+        \node [font=\small] at (6,11.75) {To load};
+        \node [font=\small] at (1.75,8) {C1 10$\mu$F};
+        \node [font=\small] at (1.75,5.75) {R1 10k$\Omega$};
+        \node [font=\small] at (3.75,5.75) {R2 10k$\Omega$};
+        \draw [](2.75,8.25) to[short] (4.5,8.25);
+        \node [font=\small] at (6.25,8.75) {C.T Output};
+        \node [font=\small, rotate around={270:(0,0)}] at (0.25,4.5) {Arduino GND};
+        \node [font=\small, rotate around={270:(0,0)}] at (4.25,4) {Arduino input};
+        \node [font=\small, rotate around={270:(0,0)}] at (5.75,4.5) {Arduino 5V DC};
+        \node [font=\small, rotate around={270:(0,0)}] at (2.5,4.5) {Mid-point};
+        \draw [](5.5,3.75) to[short, o-] (5.5,4) ;
+        \draw [](0.5,3.75) to[short, o-] (0.5,4) ;
+        \draw [](4.5,3.75) to[short, o-] (4.5,4) ;
+        \draw [](2.75,4) to[short] (2.75,3.75);
+    \end{circuitikz}
+    \caption{Current transformer circuit with Arduino}
+    \label{fig:CT - Sensor}
+\end{figure}
+\vspace{2pt}
+\end{minipage}
