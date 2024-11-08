@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "energy-monitor-439602",
+  "private_key_id": "64c11abdcf9047aea2abea00c2181a48964b1f73",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCvmRFL+QNe9I1v\nf8QxJKzs5aj61st0XuIzUlPB4akxnxCQVUSzLfw+vx3slXKqU4NTfp8wyaKl2B8I\nxZEn1XpPja5Yzz5OPn8e/ZAm9Nc5lla3rEjamHVINCGD5ASELrv0/qGhicpI303f\nBbcCXuVOHyswApLNOz9QnS9U77cWtySfvDLqxkjwDAsl8uhUwmQz1XHR4XxoXxUc\nqnN+bqri0BScAe9B9lkPAQefB72652iE2jmn6lw+sySYyAB9BIdS+6ghT7JnclxO\n/lao5PpHs201t75sxJt7wIFOP3388B1cnHoO6B9QHy5wnV3x2spssYPkA6V56esT\nLXXB5SbJAgMBAAECggEAD9KFy7fyHRABn4qeccQpfcYa4hFRL1juXmv8ZpOwFGvO\nCQdZ46BQ4pGDf4Ie3SidxHv8GaANkw6Ei1yL/hAfD4SHcXKpHVFF0JPN9aiprQN2\nKGIyhVnn9XvXCkSVQJjacFKyWzUogET4xhAEg8bruAyYbmDI/Auq4pdrQKbB816i\nGhDiye984pRfWOOdqVngrCfuxw59B84abfbZuwzgBa1xyq64gnrg+bpFgJIgDX9h\n3o7xBcUUcrBnYR4w0b8w5BRGfvQXPS5z051I2I6KOf+rTszSfUPFtzz9kL03FMNp\nx1/wuT+8AXIX8Sv2rb4SYUS0DBFB+cia0hZHMUfN4QKBgQD3LC4A8eW69TW77wXj\ne96d+S1izwLU4O0BzWDrJbAmmqqLz3lPFEV+WHqeWjxJNY1tWDwIR6am2N+1GUIO\nHat+ezrIut/vFx1RLoj7tMrXGNZURcisAJ7H7u6MbvHxMoXtMI1eaJpMY0qqA+n8\n3v6p3g2paEsvx7lgw3sUKVaOeQKBgQC13oDnS+pTxyEuIxVa5qFhgENg04pSVMXl\nT6TBwkR1R66Z/jl6ykfInrx102SnNDu3hvhcJ5FD75S5mGdgQn9A5+qNN8lwAKe2\nxe+pZ40rJa1+ytdbbBUM3u3nqXALLqSlQFlHGd6S1VRX5DESYdiI2HawfydceYPj\nrrUniQQG0QKBgFilL5qHJqz2ZF8SSjpbomtlgjF9rLZMNLQAxFGRIqu1rJSXxBno\nW0QE13UTR6u52Q7uJhmSGOKdxR1eAaKuYWLrLxnua4GD+K+00Mv0+wpJjhSLMnz9\ne/SYbFVRNNQcGowGbaz+NthOg+iVnsVh9FNXn+6xyMVKC+H4OZvxd2mBAoGAT33a\nb75hxI6D9SuGeP3XScuLJ7Yufj/pY4pFJB9qVqynJ03UB9SEPa8MBqAIHYEaHOSU\nh4sP1lbQdbKkdJF8F32GqoTYuei/ZYbscun87QAB7ipwqNf79201JQ2NGIYhls0i\neI5ZF2rA+82UmUlFIMMkVY6uQKAoQospSQd9SBECgYA63Aq/UeZMoUJV6twkR0cy\n3M7ThjEpnaSB2HudKMZjGNoclEmJ+yBNZ1WjpxklC3BLOG0oS7cg8i7Th0bZJAUg\nxhJsnZhw+T/iLA3/cHc5K3V7ALp8ovFhX5BQGUyXEQJhmM/4T4gL9OoxnW8dL5JW\nfv3RlaJ3VYAgftxdNB47nQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "energy-meter-service-account@energy-monitor-439602.iam.gserviceaccount.com",
+  "client_id": "106065831492369675542",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/energy-meter-service-account%40energy-monitor-439602.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Data Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Energy Data Dashboard</h1>
+        </header>
+
+        <!-- Month and Day Dropdowns -->
+        <div class="dropdowns">
+            <div class="dropdown-container">
+                <label for="month-dropdown">Select Month</label>
+                <select id="month-dropdown">
+                    <option value="">-- Select Month --</option>
+                    {% for month in month_options %}
+                        <option value="{{ month['value'] }}" {% if selected_month == month['value'] %}selected{% endif %}>{{ month['label'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="dropdown-container">
+                <label for="day-dropdown">Select Day</label>
+                <select id="day-dropdown">
+                    <option value="">-- Select Day --</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Tabs and Reset Button Section -->
+        <div class="tabs-and-reset">
+            <!-- Tabs for Irms, Energy Usage, kWh -->
+            <div class="tabs">
+                <ul class="tab-titles">
+                    <li class="{% if selected_tab == 'irms' %}active{% endif %}">
+                        <a href="?tab=irms&month={{ selected_month or '' }}&day={{ selected_day or '' }}">Irms</a>
+                    </li>
+                    <li class="{% if selected_tab == 'energy_usage' %}active{% endif %}">
+                        <a href="?tab=energy_usage&month={{ selected_month or '' }}&day={{ selected_day or '' }}">Energy Usage</a>
+                    </li>
+                    <li class="{% if selected_tab == 'kwh' %}active{% endif %}">
+                        <a href="?tab=kwh&month={{ selected_month or '' }}&day={{ selected_day or '' }}">kWh</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Reset Filter Button -->
+            <button id="reset-button" onclick="resetFilters()">
+                <i class="fas fa-redo"></i> Reset Filters
+            </button>
+        </div>
+
+        <!-- Plotly Graph -->
+        <div id="plotly-graph" class="graph-container">
+            {{ graph_html | safe }}
+        </div>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>© 2024 Energy Data Dashboard. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript for dynamic day options based on selected month
+        const monthDropdown = document.getElementById('month-dropdown');
+        const dayDropdown = document.getElementById('day-dropdown');
+
+        monthDropdown.addEventListener('change', function() {
+            const selectedMonth = monthDropdown.value;
+
+            // Clear day dropdown and reset options
+            dayDropdown.innerHTML = '<option value="">-- Select Day --</option>';
+
+            if (selectedMonth) {
+                fetch(`/days?month=${selectedMonth}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(day => {
+                            const option = document.createElement('option');
+                            option.value = day;
+                            option.textContent = `Day ${day}`;
+                            dayDropdown.appendChild(option);
+                        });
+                    });
+            }
+
+            // Reload page with updated month selection
+            window.location.href = `?tab={{ selected_tab }}&month=${selectedMonth || ''}&day=${dayDropdown.value || ''}`;
+        });
+
+        dayDropdown.addEventListener('change', function() {
+            const selectedMonth = monthDropdown.value;
+            const selectedDay = dayDropdown.value;
+
+            // Reload page with updated day selection
+            window.location.href = `?tab={{ selected_tab }}&month=${selectedMonth || ''}&day=${selectedDay || ''}`;
+        });
+
+        // Reset filters function
+        function resetFilters() {
+            window.location.href = `?tab={{ selected_tab }}&month=&day=`;
+        }
+    </script>
+</body>
+</html>
