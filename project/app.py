@@ -3,8 +3,8 @@ import pandas as pd
 import plotly.graph_objects as go
 from dotenv import load_dotenv
 import os
-import psycopg2
-from psycopg2 import OperationalError
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import OperationalError
 
 app = Flask(__name__)
 
@@ -14,18 +14,18 @@ load_dotenv()
 # Get the database connection URL from environment variables
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Initialize SQLAlchemy engine
+engine = create_engine(DATABASE_URL)
+
 # Function to fetch and format data from the PostgreSQL database
 def get_data(tab, group_by=None, selected_month=None, selected_day=None):
     try:
-        # Connect to the PostgreSQL database using the connection URL
-        conn = psycopg2.connect(DATABASE_URL)
-        
         # Define the query to fetch data from the database
-        query = "SELECT date, irms, energy_usage, kwh FROM energydata"  # Adjusted column names
+        query = text("SELECT date, irms, energy_usage, kwh FROM energydata")  # Adjusted column names
 
         # Read the data from the database
-        df = pd.read_sql_query(query, conn)
-        conn.close()
+        with engine.connect() as conn:
+            df = pd.read_sql_query(query, conn)
         
     except OperationalError as e:
         print("Error connecting to the database:", e)
@@ -44,15 +44,13 @@ def get_data(tab, group_by=None, selected_month=None, selected_day=None):
         df = df[df['month'] == selected_month]
         # Sort by day after filtering by month
         df = df.sort_values(by=['day', 'date'])
-    if selected_day:
+    if selected_day and selected_day.isdigit():  # Check if selected_day is not None and is a digit
         df = df[df['day'] == int(selected_day)]
         # Sort by hour after filtering by day
         df = df.sort_values(by=['hour', 'date'])
 
     return df
 
-
-# Route for the homepage
 # Route for the homepage
 @app.route('/')
 def index():

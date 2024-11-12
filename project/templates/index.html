@@ -8,6 +8,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='renewable-energy (1).ico') }}" type="image/x-icon">
     <style>
         body { font-family: 'Poppins', sans-serif; display: flex; justify-content: center; background-color: #f4f6f8; margin: 0; padding: 0; }
         .container { width: 90%; max-width: 1200px; background: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; padding: 20px; margin: 20px 0; }
@@ -17,7 +18,7 @@
         .dropdown-container, .tabs { flex: 1; margin: 10px; }
         label { display: block; margin-bottom: 5px; font-weight: 500; }
         select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 1em; }
-        .tabs ul { display: flex; list-style: none; padding: 0; margin: 0; justify-content: center; }
+        .tabs ul { display: flex; list-style: none; padding: 0; margin: 0; justify-content: left; }
         .tabs li { margin: 0 5px; }
         .tabs a { display: block; padding: 10px 20px; background: #ddd; color: #333; text-decoration: none; border-radius: 4px; }
         .tabs .active a { background: #007bff; color: #fff; }
@@ -104,6 +105,9 @@
                             const option = document.createElement('option');
                             option.value = day;
                             option.textContent = `Day ${day}`;
+                            if (day == "{{ selected_day }}") {
+                                option.selected = true;  // Retain the selected day
+                            }
                             dayDropdown.appendChild(option);
                         });
                         dayDropdown.disabled = false;
@@ -115,7 +119,6 @@
         monthDropdown.addEventListener('change', function() {
             const selectedMonth = monthDropdown.value;
             updateDayDropdown(selectedMonth);  // Update days based on the selected month
-            dayDropdown.value = "selectedDay";  // Reset day selection
             window.location.href = `?tab={{ selected_tab }}&month=${selectedMonth}&day=`;  // Reset day in the URL when month changes
         });
 
@@ -135,7 +138,7 @@
             monthDropdown.value = "";
             dayDropdown.innerHTML = '<option value="">-- Select Day --</option>';
             dayDropdown.disabled = true;
-            window.location.href = `?tab={{ selected_tab }}&month=&day=`; 
+            window.location.href = `?tab={{ selected_tab }}&month=&day=`;
         }
     </script>
 </body>
