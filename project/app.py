@@ -91,25 +91,37 @@ def index():
 
     # Set axis titles and graph data based on selected tab
     if selected_tab == 'irms':
-        fig.add_trace(go.Scatter(x=df['date'], y=df['irms'], mode='lines', name='Irms'))
+        fig.add_trace(go.Scatter(x=df['date'], y=df['irms'], mode='lines', name='Irms', line=dict(width=3, color='rgba(37, 60, 212)'))),
         fig.update_layout(
             title="Current (Irms)",
             xaxis_title="Date",
-            yaxis_title="Current (A)"
+            yaxis_title="Current (A)",
+            template= 'simple_white',
+            title_font=dict(family="Montserrat, sans-serif", size=24, color="white"),
+            showlegend=True,
+            hovermode='closest'
         )
     elif selected_tab == 'energy_usage':
-        fig.add_trace(go.Scatter(x=df['date'], y=df['energy_usage'], mode='lines', name='Energy Usage'))
+        fig.add_trace(go.Scatter(x=df['date'], y=df['energy_usage'], mode='lines', name='Energy Usage', line=dict(width=3, color='rgba(100, 241, 19)'))),
         fig.update_layout(
             title="Energy Usage (Ws)",
             xaxis_title="Date",
-            yaxis_title="Energy (Ws)"
+            yaxis_title="Energy (Ws)",
+            template= 'simple_white',
+            title_font=dict(family="Montserrat, sans-serif", size=24, color="white"),
+            showlegend=True,
+            hovermode='closest'
         )
     else:  # kWh tab
-        fig.add_trace(go.Scatter(x=df['date'], y=df['kwh'], mode='lines', name='kWh'))
+        fig.add_trace(go.Scatter(x=df['date'], y=df['kwh'], mode='lines', name='kWh', line=dict(width=3, color='rgba(245, 127, 17)'))),
         fig.update_layout(
             title="Energy Consumption (kWh)",
             xaxis_title="Date",
-            yaxis_title="kWh"
+            yaxis_title="kWh",
+            template= 'simple_white',
+            title_font=dict(family="Montserrat, sans-serif", size=24, color="black"),
+            showlegend=True,
+            hovermode='closest'
         )
 
     graph_html = fig.to_html(full_html=False)
