@@ -1,0 +1,118 @@
+\section{Arduino Code Breakdown}
+
+In this section, we break down the Arduino code into subsections to explain its functionality step by step.
+
+\subsection{Initializing Libraries and Variables}
+\begin{lstlisting}[style=Arduino]
+#include "EmonLib.h"
+EnergyMonitor emon1;  // Create an instance
+
+// Variables for measurements
+double ACV;
+double Irms;
+double Power;
+double Energy = 0.0;
+double totalEnergy = 0.0;
+double kWh = 0.0;
+\end{lstlisting}
+
+Here, we include the `EmonLib` library, which allows us to interface with the current transformer to measure the current and voltage. The `EnergyMonitor` object `emon1` is created to hold the measurements. Several variables are initialized to store the readings such as AC voltage (`ACV`), current (`Irms`), power (`Power`), energy, total energy, and the final energy in kilowatt-hours (`kWh`).
+
+\subsection{Setup Function}
+\begin{lstlisting}[style=Arduino]
+void setup() {
+  Serial.begin(9600);  
+  emon1.current(A0, 20.85);  
+  emon1.voltage(A2, 171.36, 1.7);  
+}
+\end{lstlisting}
+
+In the `setup()` function:
+\begin{enumerate}
+    \item The `Serial.begin(9600)` command initializes serial communication at 9600 baud rate for debugging and sending data to the computer.
+    \item The `emon1.current(A0, 20.85)` and `emon1.voltage(A2, 171.36, 1.7)` commands set up the current and voltage inputs. `A0` is the input pin for measuring current, and `A2` is the input pin for measuring voltage. The calibration values are used for accuracy.
+\end{enumerate}
+
+
+\subsection{Main Loop for Measurements}
+\begin{lstlisting}[style=Arduino]
+void loop() {
+  double Irms = emon1.calcIrms(1480); 
+  double ACV = 127.0;  // Assume constant AC voltage of 127V
+  double Power = Irms * ACV; 
+  
+  // Print the power to the serial monitor
+  Serial.print("Power: ");
+  Serial.println(Power);
+}
+\end{lstlisting}
+
+In the `loop()` function:
+\begin{enumerate}
+    \item `emon1.calcIrms(1480)` calculates the RMS value of the current using the waveform captured from the current transformer.
+    \item The power is calculated using the formula `Power = Irms * ACV`, where `ACV` is assumed to be 127V for simplicity.
+    \item The power is then printed to the serial monitor using `Serial.print()`.
+\end{enumerate}
+
+
+\subsection{Energy Calculation and Printing Data}
+\begin{lstlisting}[style=Arduino]
+  // Calculate energy in watt-seconds for the 10-second interval
+  Energy = Power * (MEASURE_INTERVAL / 1000.0);   
+  totalEnergy += Energy;                          
+
+  // Calculate kWh from total energy (in watt-seconds)
+  kWh = totalEnergy / 3600000.0;  
+
+  // Print data in CSV format for Python parsing
+  printData();
+\end{lstlisting}
+
+This part of the code calculates the energy consumed over a 10-second interval:
+\begin{enumerate}
+    \item The `Energy = Power * (MEASURE\_INTERVAL / 1000.0)` calculation converts power to energy in watt-seconds, adjusting for the interval time.
+    \item The total energy is accumulated by adding the current energy measurement to the `totalEnergy` variable.
+    \item The `kWh` value is calculated by converting the total energy in watt-seconds to kilowatt-hours.
+    \item The `printData()` function is called to send the data to the serial monitor in a CSV format for easy parsing by the Python script.
+\end{enumerate}
+
+
+\subsection{Simulating Time and Printing Data}
+\begin{lstlisting}[style=Arduino]
+void printData() {
+  // Simulate incrementing time (1 measurement every 10 seconds)
+  seconds += 10; 
+
+  // Adjust minutes and hours based on seconds overflow
+  if (seconds >= 60) {
+    seconds -= 60;
+    minutes++;
+  }
+  if (minutes >= 60) {
+    minutes -= 60;
+    hours++;
+  }
+  if (hours >= 24) {
+    hours -= 24;
+    day++;
+  }
+
+  // Format date and time string
+  char dateBuffer[20];
+  sprintf(dateBuffer, "%04d-%02d-%02d %02d:%02d:%02d", year, month, day, hours, minutes, seconds);
+
+  // Print the data row with date and time
+  Serial.print(dateBuffer);
+  Serial.print(", ");
+  Serial.print(Irms);
+  Serial.print(", ");
+  Serial.print(Energy);
+  Serial.print(", ");
+  Serial.println(kWh);
+}
+\end{lstlisting}
+
+The `printData()` function:
+- Simulates the passage of time by incrementing the `seconds`, `minutes`, `hours`, and `day` variables. Overflow is handled for seconds, minutes, hours, and days.
+- It formats the date and time as a string using `sprintf()`.
+- Finally, it prints the formatted date and time along with the current readings for `Irms`, `Energy`, and `kWh` to the serial monitor in CSV format for Python to process.

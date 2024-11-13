@@ -1,0 +1,9 @@
+% Add text for abstract
+
+This abstract outlines a comprehensive approach for measuring and monitoring energy consumption using an Arduino-based system, integrated with cloud computing and web application technologies. With rising interest in energy optimization, this project aims to provide precise, accessible, and real-time energy data. 
+
+The system employs an Arduino microcontroller, paired with a YHDC Current Transformer SCT-013-000 sensor, to measure current. Using analog-to-digital conversion, the Arduino calculates energy consumption by converting power (in watts) to energy (in watt-seconds) and subsequently to kilowatt-hours (kWh). The processed data is transmitted every 10 seconds to a cloud-based PostgreSQL database, facilitated by a Python script connected to the Arduino's serial monitor.
+
+A Flask-based web application, supported by the Dash framework, visualizes the collected data. This app allows users to filter data by month and day, enabling detailed analysis of consumption patterns. Additionally, data syncing is configured to run periodically in the background to ensure the database remains up-to-date with the latest measurements. The integration of a cloud database enhances accessibility, allowing users to track energy usage remotely and make data-driven decisions for energy optimization.
+
+By utilizing the Arduino's compatibility with various sensors and a robust cloud infrastructure, this system presents an efficient and scalable solution for real-time energy monitoring.

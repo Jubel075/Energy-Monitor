@@ -1,0 +1,33 @@
+\section{System Design}
+\label{sec:system_design}
+
+\noindent The energy monitoring system consists of three main components:
+the Arduino microcontroller, the YHDC Current Transformer (CT) SCT-013-000 sensor, and a cloud-based PostgreSQL database accessible through a web application. Each component plays a vital role in capturing, processing, storing, and displaying energy consumption data in real-time.
+
+\subsection{Hardware Components}
+\noindent The system's hardware includes:
+\begin{itemize}
+    \item \textbf{Arduino Microcontroller:} The Arduino serves as the primary data collection unit, converting analog signals from sensors to digital data for processing. It calculates the instantaneous power and energy usage based on current measurements from the CT sensor.
+    \item \textbf{YHDC SCT-013-000 Current Transformer Sensor:} This non-invasive sensor measures the AC current flowing through a wire. It generates an analog signal proportional to the current, which is read by the Arduino's analog input.
+    \item \textbf{AC-to-AC Power Adapter:} To measure AC voltage, an AC-to-AC adapter is used. This adapter steps down the AC voltage to a safe level compatible with the Arduino's analog input, allowing it to monitor real-world voltage values accurately.
+\end{itemize}
+
+\subsection{Software Components}
+\noindent The software components of the system include:
+\begin{itemize}
+    \item \textbf{Data Processing on Arduino:} The Arduino processes signals from the CT sensor and calculates power by combining current and voltage values. The calculated energy data is sent to a local SQLite database, which is later synced with a cloud database.
+    \item \textbf{Python Data Transfer Script:} A Python script interfaces with the Arduino's serial monitor and transfers the processed data to a cloud-based PostgreSQL database at intervals of 10 seconds.
+    \item \textbf{Flask Web Application:} A Flask-based application with Dash visualizes the data, allowing users to filter by month and day to observe consumption trends. This user interface provides an accessible and flexible way to monitor energy usage over time.
+\end{itemize}
+
+\subsection{Data Flow and Operation}
+\input{Graphics/system_design_PFD}
+\noindent The system operates as follows:
+\begin{enumerate}
+    \item The Arduino reads analog signals from the CT sensor and the AC-to-AC adapter.
+    \item It processes these signals, calculates energy consumption in watt-seconds (later converted to kWh), and sends the data to the Python script.
+    \item The Python script logs the data in a local SQLite database, which then syncs to a PostgreSQL cloud database every 10 seconds.
+    \item The web app fetches the latest data from the cloud database, displaying it with interactive filters for user analysis.
+\end{enumerate}
+
+\noindent This modular design, combining hardware and software elements, enables real-time, remote monitoring of energy usage.

@@ -1,0 +1,9 @@
+\section{Measuring AC Voltage with an AC to AC power adapter}
+\input{Graphics/Voltage transformer data}
+
+\subsection{AC-AC Power Adapter Schematic}
+The circuit is designed to measure AC voltage using an Arduino, an AC-AC power adapter, and a voltage divider. The AC-AC adapter supplies the input voltage (\(V_{\text{in}}\)) to the circuit. The voltage divider, made of resistors \(R_1\) and \(R_2\), steps down the AC voltage to a safe level for the Arduino’s 0-5V input range. The resistors are selected to ensure the voltage stays within the Arduino’s limits.
+
+To allow the Arduino to read both positive and negative portions of the AC waveform, the signal is biased to a 2.5V reference using resistors \(R_3\) and \(R_4\). Capacitor \(C_1\) filters high-frequency noise, ensuring clean signal measurement. A coupling capacitor (\(C_2\)) isolates the DC bias while passing the AC signal to the Arduino’s analog input, where it is digitized for further analysis. This setup enables safe, accurate measurement of AC voltage for energy monitoring.
+
+\input{Graphics/AC_AC_Power_Adapter.tex}
