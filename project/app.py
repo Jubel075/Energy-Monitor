@@ -51,6 +51,31 @@ def get_data(tab, group_by=None, selected_month=None, selected_day=None):
 
     return df
 
+# Function to calculate stats for the selected data
+def calculate_stats(df, tab):
+    if tab == 'irms':
+        data = df['irms']
+        title = "Current (Irms)"
+    elif tab == 'energy_usage':
+        data = df['energy_usage']
+        title = "Energy Usage (Ws)"
+    elif tab == 'kwh':
+        data = df['kwh']
+        title = "Energy Consumption (kWh)"
+    
+    total = data.sum()
+    average = data.mean()
+    maximum = data.max()
+    minimum = data.min()
+    
+    return {
+        "title": title,
+        "total": total,
+        "average": average,
+        "max": maximum,
+        "min": minimum
+    }
+
 # Route for the homepage
 @app.route('/')
 def index():
@@ -93,13 +118,17 @@ def index():
     month_options = [{'value': month, 'label': month} for month in df['month'].unique()]
     day_options = df['day'].unique().tolist()
 
+    # Calculate analytical stats for the selected tab
+    stats = calculate_stats(df, selected_tab)
+
     return render_template('index.html', 
                            graph_html=graph_html,
                            selected_month=selected_month, 
                            selected_day=selected_day,
                            selected_tab=selected_tab,
                            month_options=month_options,
-                           day_options=day_options)
+                           day_options=day_options,
+                           stats=stats)
 
 
 # Route to fetch available days for the selected month
