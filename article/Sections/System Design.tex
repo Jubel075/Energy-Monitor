@@ -1,16 +1,6 @@
 \section{System Design}
-\label{sec:system_design}
-
 \noindent The energy monitoring system consists of three main components:
-the Arduino microcontroller, the YHDC Current Transformer (CT) SCT-013-000 sensor, and a cloud-based PostgreSQL database accessible through a web application. Each component plays a vital role in capturing, processing, storing, and displaying energy consumption data in real-time.
-
-\subsection{Hardware Components}
-\noindent The system's hardware includes:
-\begin{itemize}
-    \item \textbf{Arduino Microcontroller:} The Arduino serves as the primary data collection unit, converting analog signals from sensors to digital data for processing. It calculates the instantaneous power and energy usage based on current measurements from the CT sensor.
-    \item \textbf{YHDC SCT-013-000 Current Transformer Sensor:} This non-invasive sensor measures the AC current flowing through a wire. It generates an analog signal proportional to the current, which is read by the Arduino's analog input.
-    \item \textbf{AC-to-AC Power Adapter:} To measure AC voltage, an AC-to-AC adapter is used. This adapter steps down the AC voltage to a safe level compatible with the Arduino's analog input, allowing it to monitor real-world voltage values accurately.
-\end{itemize}
+the Arduino microcontroller, the YHDC Current Transformer (CT) SCT-013-000 sensor, and a cloud-based PostgreSQL database accessible through a web application. Each component plays a vital role in capturing, processing, storing, and displaying energy consumption data in real-time.Since we've covered the hardware components in Section II, here we'll go over the software components used.
 
 \subsection{Software Components}
 \noindent The software components of the system include:
@@ -21,7 +11,9 @@ the Arduino microcontroller, the YHDC Current Transformer (CT) SCT-013-000 senso
 \end{itemize}
 
 \subsection{Data Flow and Operation}
+
 \input{Graphics/system_design_PFD}
+
 \noindent The system operates as follows:
 \begin{enumerate}
     \item The Arduino reads analog signals from the CT sensor and the AC-to-AC adapter.

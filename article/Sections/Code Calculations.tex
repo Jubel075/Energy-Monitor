@@ -1,0 +1,85 @@
+\section{Energy Monitoring System Calculations}
+
+The energy monitoring system performs several key calculations to track and measure real-time energy consumption. Below is a detailed explanation of the important calculations implemented in the code for monitoring the energy usage.
+
+\subsection{Root Mean Square (RMS) Current Calculation}
+
+The energy monitoring system uses the Root Mean Square (RMS) current to measure the average current flowing through the load. The RMS current (\(I_{rms}\)) is calculated by the `emon1.calcIrms()` function, which computes the RMS value of the current over a specified number of half-wavelengths (crossings) of the AC signal. This is essential for determining the power consumed by the load, as RMS values better represent the continuous power usage over time. The formula for RMS current is:
+
+\[
+I_{rms} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} I_i^2}
+\]
+
+where \(I_i\) represents the instantaneous current values over \(N\) half-wavelengths. The number of sample points \(N = 1480\) is used in the code to calculate the RMS current, ensuring that the power consumption is accurately measured over the desired time period. \cite{OpenEnergyMonitor_Calibration}
+
+\subsection{Power Calculation}
+
+Once the RMS current is obtained, the power consumed by the load is calculated using the following formula:
+
+\[
+P = I_{rms} \times V_{rms}
+\]
+
+where \(I_{rms}\) is the RMS current in amperes and \(V_{rms}\) is the RMS voltage, assumed to be \(127 \, V\) in the system. The power calculation is straightforward, as it directly multiplies the RMS current by the RMS voltage to obtain the instantaneous power in watts. The instantaneous power can be expressed as:
+
+\[
+P = I_{rms} \times 127 \, V
+\]
+
+The computed power helps in determining the energy consumed over time by the load, which is the basis for further energy calculations.
+
+\subsection{Energy Calculation}
+
+Energy consumption is calculated by multiplying the power by the time interval during which the measurement is taken. The energy in watt-seconds is computed as:
+
+\[
+E = P \times \Delta t
+\]
+
+where \(P\) is the instantaneous power (in watts) and \(\Delta t = 1 \, s\) is the time interval in seconds. The time interval is fixed at 1 second, corresponding to the frequency of measurements. This means that for every second, the energy consumed is accumulated to provide an accurate measure of energy usage in watt-seconds. The system performs this calculation for each measurement cycle, which is then added to the total energy consumed.
+
+\subsection{Total Energy Accumulation}
+
+The total energy consumed over time is obtained by summing the energy measured during each time interval. The total energy is accumulated by adding the energy for each new measurement cycle:
+
+\[
+E_{\text{total}} = E_1 + E_2 + \dots + E_n
+\]
+
+where \(E_n\) represents the energy calculated during the \(n\)-th interval. This value is continuously updated in the code and stored in the variable `totalEnergy`, which represents the total energy consumed since the system started operating.
+
+\subsection{Energy Conversion to kWh}
+
+Once the total energy is calculated in watt-seconds, it is converted into kilowatt-hours (kWh) for easier interpretation. Since 1 kilowatt-hour is equivalent to 3.6 million watt-seconds, the conversion is performed as follows:
+
+\[
+1 \, \text{kWh} = 3.6 \times 10^6 \, \text{watt-seconds}
+\]
+
+Thus, the total energy in kWh is given by:
+
+\[
+kWh = \frac{E_{\text{total}}}{3.6 \times 10^6}
+\]
+
+This conversion is critical for understanding energy usage on a larger scale, as kilowatt-hours are commonly used in electricity billing and consumption analysis.
+
+\subsection{Time Simulation and Adjustment}
+
+The system simulates real-time data by incrementing the time in seconds by 10 for each measurement cycle. This time simulation ensures that the system continuously tracks energy usage in a time-ordered fashion. The time is adjusted for overflow, so that:
+
+\[
+\text{seconds} \leftarrow \text{seconds} + 10
+\]
+
+In the case that the seconds exceed 60, they are reset to 0, and the minutes are incremented. Similarly, if the minutes exceed 60, they are reset to 0, and the hours are incremented. If the hours exceed 24, the day counter is incremented, and the system adjusts for month and year changes. This simulation ensures that the system tracks time in a realistic manner, providing accurate data for each measurement.
+
+\subsection{CSV Output Format}
+
+To make the data easily accessible for analysis, the system outputs the measured values in a CSV format. The format consists of the date, RMS current, energy usage in watt-seconds, and the converted energy in kilowatt-hours:
+
+\[
+\text{Output format:} \quad \text{Date, Irms, Energy, kWh}
+\]
+
+This format is suitable for parsing by external software, such as a Python script, and allows for easy storage and further analysis of the energy consumption data. The output format makes it simple to visualize trends and identify areas where energy efficiency improvements can be made.

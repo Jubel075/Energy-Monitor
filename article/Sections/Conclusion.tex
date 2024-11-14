@@ -1,0 +1,13 @@
+\section{Energy Monitoring System Overview}
+
+This Arduino-based system uses an Arduino microcontroller and a YHDC Current Transformer SCT-013-000 sensor to monitor household energy consumption in real time. Power and energy calculations are performed on the Arduino, which converts data into kilowatt-hours (kWh) and sends it every 10 seconds to a cloud-based PostgreSQL database. A web app, built with Flask and Dash, enables users to view and analyze this data remotely.
+
+Key features include:
+\begin{itemize}
+    \item \textbf{Real-time monitoring:} Continuous data updates on energy use.
+    \item \textbf{Remote access:} Data stored in the cloud allows for monitoring from any location.
+    \item \textbf{Data visualization:} A user-friendly web interface displays insights and reports.
+    \item \textbf{Energy efficiency insights:} Identifies potential areas for savings.
+\end{itemize}
+
+With a modular design that combines hardware and software, this system is scalable for future enhancements, providing a valuable tool for energy tracking and optimization.

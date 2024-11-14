@@ -1,37 +1,50 @@
 \section{Materials}
-\lipsum[1-1]
-\subsection{Arduino Micro-controller}
+This setup for measuring energy consumption includes an Arduino microcontroller and a Current Transformer (CT) sensor. The CT sensor detects the alternating current (AC) flowing through a conductor without direct electrical contact. It outputs a proportional current signal to the Arduino, which processes the data to calculate energy consumption. To improve accuracy, the system may include resistors, capacitors for filtering, and a voltage divider circuit for safe scaling, allowing the Arduino to measure and record energy data reliably for applications like household or small industrial monitoring.
 
-\begin{itemize}
-    \item Microcontroller: The heart of the project. It processes the data received from sensors, performs calculations, and controls other components.
-    \item Digital and Analog Pins: These pins are used to connect sensors and actuators. Digital pins provide high or low signals, while analog pins can read varying voltage levels.
-    \item Power Supply: The board can be powered by a USB cable or an external power supply.
-    \item Serial Communication: The board can communicate with a computer or other devices using a serial connection.
-\end{itemize}
+\subsection{Arduino Microcontroller UNO}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{Graphics/ard_uno-removebg-preview.png}
+    \caption{Arduino Uno Microcontroller}
+    \label{fig:image1}
+\end{figure}
+The Arduino UNO is the core microcontroller for this energy monitoring setup, handling data from various sensors and executing calculations for accurate energy measurements. It operates on a 5V logic level, suitable for reading data from components like the CT sensor (current transformer) and voltage divider circuits. Potential additional components include resistors to limit current, capacitors to filter noise, and an external analog-to-digital converter if higher accuracy is needed. \cite{OpenEnergyMonitor_Arduino}
 
 \subsection{YHDC Current Transformer SCT-013-000}
-    \input{Graphics/CT-sensor}
-\begin{itemize}
-    \item  Non-invasive Measurement: It measures the current flowing through a wire without physically breaking the circuit.
-    \item Magnetic Induction: It works based on the principle of electromagnetic induction.
-    \item Output Signal: It produces a small AC voltage proportional to the current flowing through the wire.
-    \item Safety: It allows for safe measurement of high currents without the risk of electric shock.
-\end{itemize}
+\input{Graphics/CT-sensor}
+The YHDC SCT-013-000 is a non-invasive current transformer sensor used to measure AC current without direct contact with the high-voltage line. This CT sensor detects current based on electromagnetic induction and outputs a small, proportional AC signal. When connected to the Arduino, it allows accurate monitoring of the current flowing through the conductor. With the help of filtering capacitors and resistors for scaling, the output signal from the CT sensor is adapted to the Arduino’s input range, enabling precise energy calculations. \cite{OpenEnergyMonitor_Arduino}
 
 \subsection{Liquid Crystal Display}
 \begin{itemize}
-    \item Display: It displays information like voltage, current, power consumption, and other relevant data.
-    \item Backlight: It provides illumination for better visibility.
+    \item Display: It displays information like voltage, current, power consumption, and other relevant data. \cite{techtarget_lcd}
+    \item Backlight: It provides illumination for better visibility. \cite{techtarget_lcd}
     \item Interface: It connects to the Arduino board through digital pins to receive and display data.
-    \item Types: There are various types of LCDs, including character LCDs and graphic LCDs. \cite{OpenEnergyMonitor}
+    \item Types: There are various types of LCDs, including character LCDs and graphic LCDs.
 \end{itemize}
 
-
-\subsection{ Other Potential Components:}
+\subsection{ Potential Components:}
 \begin{itemize}
-    \item Voltage Sensor: Measures the voltage entering the circuit.
+    \item Voltage Sensor: To measure voltage, we initially tried the Open Energy Monitor (EmonLib) approach, which utilizes an AC-AC adapter to capture the alternating voltage signal. However, due to issues with stability, we instead used a fixed AC voltage source of 127V for this setup. This consistent voltage ensures a reliable reference for calculating power and energy consumption.
     \item Temperature Sensor: Monitors the temperature of the system or environment.
     \item Power Supply: Provides the necessary power for the Arduino and other components.
-    \item Resistors: Used to limit current and divide voltage.
-    \item Capacitors: Used to filter noise and store energy.
+    \item LCD (Liquid Crystal Display):
 \end{itemize}
+
+\subsection{Voltage Divider}
+The voltage divider circuit is designed to scale down the high input voltage of 127V AC to a safe range of 0-5V DC for Arduino's analog input. It consists of two resistors ($R_1$ and $R_2$) that divide the voltage proportionally based on their resistance values. A capacitor ($C_1$) is added to filter noise, and a coupling capacitor ($C_2$) biases the signal within the 0-5V range. This enables the Arduino to read the AC signal safely without risking damage from high voltage. \cite{OpenEnergyMonitor_Voltage}
+
+The output voltage, $V_{out}$, can be calculated as:
+$$ V_{out} = V_{in} \times \frac{R_2}{R_1 + R_2}$$
+
+where $V_{in}$ is the input AC voltage (127V). By selecting appropriate resistor values, $V_{out}$ can be scaled to fall within the Arduino's input limits.
+\input{Graphics/AC_AC_Power_Adapter.tex}
+The circuit is designed to measure AC voltage using an Arduino, an AC-AC power adapter, and a voltage divider. The AC-AC adapter supplies the input voltage (\(V_{\text{in}}\)) to the circuit. The voltage divider, made of resistors \(R_1\) and \(R_2\), steps down the AC voltage to a safe level for the Arduino’s 0-5V input range. The resistors are selected to ensure the voltage stays within the Arduino’s limits.
+
+To allow the Arduino to read both positive and negative portions of the AC waveform, the signal is biased to a 2.5V reference using resistors \(R_3\) and \(R_4\). Capacitor \(C_1\) filters high-frequency noise, ensuring clean signal measurement. A coupling capacitor (\(C_2\)) isolates the DC bias while passing the AC signal to the Arduino’s analog input, where it is digitized for further analysis. This setup enables safe, accurate measurement of AC voltage for energy monitoring. \cite{OpenEnergyMonitor_Voltage}
+\input{Graphics/voltage_divider.tex}
+\subsection{AC-AC Voltage Transformator}
+The table and graph display measurements from an AC-AC voltage transformer used to step down an input AC voltage to a lower output range. The input voltage values (in volts) increase incrementally from 10V to 140V, and the corresponding output voltage (in millivolts) is recorded in each case. The current drawn at each input voltage is also measured, showing a slight increase with higher input voltages.
+\input{Graphics/Voltage transformer data}
+
+In the plotted graph, there is a near-linear relationship between the input voltage and the output voltage, which aligns with the expected behavior of a linear voltage transformation. This data is useful for calibrating and verifying the transformer’s performance, ensuring the output voltage remains within a safe and measurable range for connected circuits, such as an Arduino
+\input{Graphics/Voltage transformer plot.tex}

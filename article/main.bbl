@@ -21,9 +21,32 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{OpenEnergyMonitor}
-OpenEnergyMonitor, ``Learn: Electricity monitoring,''
-  \url{https://docs.openenergymonitor.org/electricity-monitoring/index.html#learn-electricity-monitoring},
-  accessed: 2024-04-30.
+\bibitem{OpenEnergyMonitor_Arduino}
+\BIBentryALTinterwordspacing
+OpenEnergyMonitor, ``How to build an arduino energy monitor,'' accessed:
+  2024-11-15. [Online]. Available:
+  \url{https://docs.openenergymonitor.org/electricity-monitoring/ctac/how-to-build-an-arduino-energy-monitor.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{techtarget_lcd}
+\BIBentryALTinterwordspacing
+TechTarget. (2024) Lcd (liquid crystal display). Accessed: 2024-11-15.
+  [Online]. Available:
+  \url{https://www.techtarget.com/whatis/definition/LCD-liquid-crystal-display}
+\BIBentrySTDinterwordspacing
+
+\bibitem{OpenEnergyMonitor_Voltage}
+\BIBentryALTinterwordspacing
+OpenEnergyMonitor, ``Measuring voltage with an ac-ac power adapter,'' accessed:
+  2024-11-15. [Online]. Available:
+  \url{https://docs.openenergymonitor.org/electricity-monitoring/voltage-sensing/measuring-voltage-with-an-acac-power-adapter.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{OpenEnergyMonitor_Calibration}
+\BIBentryALTinterwordspacing
+------, ``Emonlib calibration theory,'' accessed: 2024-11-15. [Online].
+  Available:
+  \url{https://docs.openenergymonitor.org/electricity-monitoring/ctac/emonlib-calibration-theory.html}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}

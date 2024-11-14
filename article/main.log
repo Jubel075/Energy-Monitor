@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2024.11.10)  14 NOV 2024 17:04
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2024.11.10)  15 NOV 2024 02:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1069,45 +1069,58 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 (abstract.tex) (Sections/Introduction.tex) (Sections/Materials.tex
-(Graphics/CT-sensor.tex) [1
+File: Graphics/ard_uno-removebg-preview.png Graphic file (type bmp)
+<Graphics/ard_uno-removebg-preview.png>
+ [1
 
-]) (Sections/System Design.tex
-(Graphics/system_design_PFD.tex) [2]) (Sections/Voltage transformer.tex
-(Graphics/Voltage transformer data.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--3
+]
+(Graphics/CT-sensor.tex) (Graphics/AC_AC_Power_Adapter.tex)
+(Graphics/voltage_divider.tex) [2] (Graphics/Voltage transformer data.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
  []
 
-(Graphics/AC_AC_Power_Adapter.tex)) (main.bbl [3]
-Underfull \hbox (badness 10000) in paragraph at lines 25--28
-[]\TU/lmr/m/n/10 OpenEnergyMonitor, “Learn: Electricity mon-
+(Graphics/Voltage transformer plot.tex)) (Sections/System Design.tex
+Underfull \hbox (badness 10000) in paragraph at lines 49--1
+
+ []
+
+(Graphics/system_design_PFD.tex) [3]) (Sections/Code Calculations.tex [4])
+(Sections/Conclusion.tex) (main.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 26--30
+[][][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][][][][][][][][][][][
+][][][][][][][] [] [][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--28
-\TU/lmr/m/n/10 itoring,” $[][][][][] [] [] [] [][][][] [] [][][][][][][][][][][
+Underfull \hbox (badness 10000) in paragraph at lines 40--44
+[][][] [] [][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][][
 ][][][][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--28
-[][][] [] [][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][] [] [][][
-][] []
+Underfull \hbox (badness 10000) in paragraph at lines 47--51
+[][][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][][][][][][][][][][][
+][][][][][][][] [] [][][][] []
  []
 
-) [4] (main.aux)
+)
+Overfull \vbox (0.63495pt too high) has occurred while \output is active []
+
+
+[5] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 47957 strings out of 409617
- 1294693 string characters out of 5774215
- 2153349 words of memory out of 5000000
- 69519 multiletter control sequences out of 15000+600000
+ 48063 strings out of 409617
+ 1297418 string characters out of 5774215
+ 2220277 words of memory out of 5000000
+ 69614 multiletter control sequences out of 15000+600000
  561215 words of font info for 60 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 99i,17n,101p,1754b,2470s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,17n,101p,1914b,2388s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (4 pages).
+Output written on main.pdf (5 pages).
