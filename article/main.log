@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2024.11.10)  15 NOV 2024 02:52
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2024.11.10)  25 NOV 2024 00:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -12,8 +12,8 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\user\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
-(C:\Users\user\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+(C:\Users\user\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count183
 \c@section=\count184
@@ -1159,12 +1159,12 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 * \topmargin=-66.59087pt
 * \headheight=25.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=11.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
 * \columnsep=28.45274pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1180,22 +1180,33 @@ File: Graphics/ard_uno-removebg-preview.png Graphic file (type bmp)
  [1
 
 ]
-(Graphics/CT-sensor.tex) (Graphics/AC_AC_Power_Adapter.tex)
-(Graphics/voltage_divider.tex) [2] (Graphics/Voltage transformer data.tex)
+(Graphics/CT-sensor.tex) [2] (Graphics/AC_AC_Power_Adapter.tex)
+(Graphics/voltage_divider.tex) (Graphics/Voltage transformer data.tex)
 Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
  []
 
-(Graphics/Voltage transformer plot.tex)) (Sections/System Design.tex
+[3] (Graphics/Voltage transformer plot.tex
+Overfull \hbox (2.57487pt too wide) in paragraph at lines 28--29
+[][] 
+ []
+
+)) (Sections/System Design.tex
 Underfull \hbox (badness 10000) in paragraph at lines 49--1
 
  []
 
-(Graphics/system_design_PFD.tex) [3]) (Sections/Code Calculations.tex [4])
-(Sections/Conclusion.tex) (main.bbl
+(Graphics/system_design_PFD.tex) [4]) (Sections/Code Calculations.tex [5])
+(Sections/Conclusion.tex [6]) (main.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 26--30
 [][][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][][][][][][][][][][][
-][][][][][][][] [] [][][][] []
+][][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--30
+[][][][] [] [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][] []
  []
 
 
@@ -1205,31 +1216,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--44
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 47--51
-[][][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][][][][][][][][][][][
-][][][][][][][] [] [][][][] []
+Underfull \hbox (badness 10000) in paragraph at lines 40--44
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][] []
  []
 
-)
-Overfull \vbox (9.74648pt too high) has occurred while \output is active []
 
+Underfull \hbox (badness 10000) in paragraph at lines 47--51
+[][][][][][][][][][][][][][][][][] [] [][][] [] [][][][][][][][][][][][][][][][
+][][][][][][][] []
+ []
 
-Overfull \vbox (0.63495pt too high) has occurred while \output is active []
-
-
-[5] (main.aux)
+) [7] (main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 54505 strings out of 409617
- 1392058 string characters out of 5774215
- 2235110 words of memory out of 5000000
- 75995 multiletter control sequences out of 15000+600000
- 561262 words of font info for 60 fonts, out of 8000000 for 9000
+ 54506 strings out of 409617
+ 1392046 string characters out of 5774215
+ 2168068 words of memory out of 5000000
+ 75998 multiletter control sequences out of 15000+600000
+ 562400 words of font info for 64 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  99i,17n,101p,1914b,2421s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (5 pages).
+Output written on main.pdf (7 pages).

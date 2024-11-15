@@ -2,6 +2,7 @@ import psycopg2
 import time
 import os
 from dotenv import load_dotenv
+import serial
 
 # Load environment variables
 load_dotenv()
@@ -13,7 +14,7 @@ PGUSER = os.getenv("PGUSER")
 PGPASSWORD = os.getenv("PGPASSWORD")
 
 # Arduino serial connection setup (update the port as necessary)
-arduino_port = 'COM8' 
+arduino_port = 'COM8'
 baud_rate = 9600
 
 # Function to create the EnergyData table if it doesn't exist
@@ -55,7 +56,7 @@ try:
     while True:
         # Read a line from the serial output
         line = ser.readline().decode('utf-8').strip()  # Read and decode the serial data
-        
+
         if line.startswith("2024"):  # Ensure the line contains the expected date format
             # Split the data by commas
             data = line.split(", ")
@@ -77,11 +78,11 @@ try:
 
             # Insert the data into the EnergyData table
             cursor.execute('''
-            INSERT INTO EnergyData (Date, Irms, Energy_Usage, kWh) 
+            INSERT INTO EnergyData (Date, Irms, Energy_Usage, kWh)
             VALUES (%s, %s, %s, %s)
             ''', (Date, irms, energy_usage, kwh))
             conn.commit()  # Commit the transaction
-            
+
             # Print the received data
             print(f"Inserted: {Date}, Irms: {irms}, Energy Usage: {energy_usage}, kWh: {kwh}")
 
