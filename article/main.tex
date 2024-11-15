@@ -1,12 +1,19 @@
 % Document preamble
 \documentclass{article}
-\usepackage{lipsum}
 \usepackage{graphicx}
 \usepackage[table]{xcolor}
 \usepackage{xcolor}
 \usepackage{colortbl}
 \usepackage{titlesec}
-\usepackage{soul}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=gray,
+    linkcolor=gray,
+    citecolor=gray,
+    pdfborderstyle={/S/U/W 1} % Underlined links (works with pdfLaTeX)
+}
+\usepackage{bookmark}
 \usepackage{listings}
 \usepackage{comment}
 % Global settings for listings
@@ -30,7 +37,6 @@
 \usetikzlibrary{positioning, shapes.geometric, arrows}
 \usepackage{float}
 \usepackage{caption}
-\usepackage{url}
 \usepackage{pgfplots,pgfplotstable}
 \pgfplotsset{compat=1.18}
 \date{\today}
